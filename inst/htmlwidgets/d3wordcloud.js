@@ -1,3 +1,4 @@
+var el, x, data;
 HTMLWidgets.widget({
 
   name: 'd3wordcloud',
@@ -8,12 +9,13 @@ HTMLWidgets.widget({
 
     return {
       // TODO: add instance fields as required
-
     };
 
   },
 
   renderValue: function(el, x, instance) {
+
+    console.log("renderValue");
 
     console.log(el);
 
