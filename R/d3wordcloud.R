@@ -5,7 +5,7 @@
 #' @import htmlwidgets
 #'
 #' @export
-d3wordcloud <- function(words, freqs, count, width = NULL, height = NULL) {
+d3wordcloud <- function(words, freqs, width = NULL, height = NULL) {
 
   # forward options using x
   x = list(
