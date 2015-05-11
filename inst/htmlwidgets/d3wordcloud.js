@@ -15,6 +15,8 @@ HTMLWidgets.widget({
 
   renderValue: function(el, x, instance) {
 
+    d3.select(el).selectAll("*").remove();
+
     console.log("renderValue");
 
     console.log(el);
@@ -31,7 +33,9 @@ HTMLWidgets.widget({
 
     var fill = d3.scale.category20();
 
-    var scale = d3.scale.log()
+    var scale = d3.scale
+      //.log()
+      .pow().exponent(1.5)
       .domain([d3.min(data, function(d) { return d.size; }),
                d3.max(data, function(d) { return d.size; })])
       .range([10, 90]);
@@ -57,7 +61,7 @@ HTMLWidgets.widget({
         .enter().append("text")
         .style("font-size", function(d) { return scale(d.size) + "px"; })
         .style("fill", function(d, i) { return fill(i); })
-        .style("font-family", "Impact")
+        //.style("font-family", "Impact")
         .attr("text-anchor", "middle")
         .attr("transform", function(d) {
           return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
