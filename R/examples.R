@@ -14,10 +14,9 @@ v <- sort(rowSums(m), decreasing = TRUE)
 d <- data.frame(word = names(v), freq = v)
 d <- d %>% tbl_df()
 d <- d %>% arrange(desc(freq))
-d <- d %>% head(50)
+d <- d %>% head(500)
 
 d3wordcloud(d$word, d$freq)
-
 
 library(shiny)
 library(htmlwidgets)
