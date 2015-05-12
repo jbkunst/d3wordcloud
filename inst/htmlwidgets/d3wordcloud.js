@@ -7,67 +7,96 @@ HTMLWidgets.widget({
 
   initialize: function(el, width, height) {
 
+    console.log("initialize");
+
+    var w = el.offsetWidth;
+    var h = el.offsetHeight;
+
+    var cloud = d3.layout.cloud();
+    var svg = d3.select(el).append("svg").attr("width", w).attr("height", h);
+    var background = svg.append("g");
+    var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
+
     return {
-      // TODO: add instance fields as required
+      cloud: cloud,
+      svg: svg,
+      background: background,
+      vis: vis
     };
 
   },
 
   renderValue: function(el, x, instance) {
 
-    d3.select(el).selectAll("*").remove();
-
     console.log("renderValue");
-
-    console.log(el);
-
-    console.log(x);
 
     var data = HTMLWidgets.dataframeToD3(x.data);
 
     console.log(data);
 
-    var width = el.offsetWidth;
-
-    var height = el.offsetHeight;
+    var w = el.offsetWidth;
+    var h = el.offsetHeight;
 
     var fill = d3.scale.category20();
 
     var scale = d3.scale
-      //.log()
-      .pow().exponent(1.5)
+      .log()
       .domain([d3.min(data, function(d) { return d.size; }),
                d3.max(data, function(d) { return d.size; })])
       .range([10, 90]);
 
-    d3.layout.cloud()
-      .size([width, height])
+    instance.cloud
+      .size([w, h])
       .words(data)
       .padding(5)
-      .rotate(function() { return Math.floor(Math.random() * 120) + 1 - 60; })
+      //.rotate(function() { return Math.floor(Math.random() * 120) + 1 - 60; })
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
       .font("Impact")
       .fontSize(function(d) { return d.size; })
       .on("end", draw)
       .start();
 
     function draw(words) {
-      d3.select(el).append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-        .attr("transform", "translate("+ width/2 +","+ height/2+")")
-        .selectAll("text")
-        .data(words)
-        .enter().append("text")
-        .style("font-size", function(d) { return scale(d.size) + "px"; })
-        .style("fill", function(d, i) { return fill(i); })
-        //.style("font-family", "Impact")
+      var text = instance.vis.selectAll("text")
+        .data(words, function(d) { return d.text.toLowerCase(); });
+
+      text.transition()
+        .duration(1000)
+        .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
+        .style("font-size", function(d) { return d.size + "px"; });
+
+      text.enter().append("text")
         .attr("text-anchor", "middle")
-        .attr("transform", function(d) {
-          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-        })
+        .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
+        .style("font-size", "1px")
+        .transition()
+        .duration(1000)
+        .style("font-size", function(d) { return d.size + "px"; });
+
+      text.style("font-family", function(d) { return d.font; })
+        .style("fill", function(d) { return fill(d.text.toLowerCase()); })
         .text(function(d) { return d.text; });
+
+      var exitGroup = instance.background.append("g")
+        .attr("transform", instance.vis.attr("transform"));
+
+      var exitGroupNode = exitGroup.node();
+
+      text.exit().each(function() {
+        exitGroupNode.appendChild(this);
+      });
+
+      exitGroup.transition()
+        .duration(1000)
+        .style("opacity", 1e-6)
+        .remove();
+
+      instance.vis.transition()
+        .delay(1000)
+        .duration(750)
+        .attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + 1 + ")");
     }
+
 
   },
 
