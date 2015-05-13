@@ -17,3 +17,4 @@ d <- d %>% arrange(desc(freq))
 d <- d %>% head(500)
 
 d3wordcloud(d$word, d$freq)
+d3wordcloud(d$word, d$freq, padding = 10)

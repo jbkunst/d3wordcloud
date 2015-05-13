@@ -32,15 +32,15 @@ HTMLWidgets.widget({
 
     var data = HTMLWidgets.dataframeToD3(x.data);
 
-    console.log(data);
+    //console.log(data);
+    console.log(x.pars);
 
     var w = el.offsetWidth;
     var h = el.offsetHeight;
 
     var fill = d3.scale.category20();
 
-    var scale = d3.scale
-      .log()
+    var scalesize = d3.scale.log()
       .domain([d3.min(data, function(d) { return d.size; }),
                d3.max(data, function(d) { return d.size; })])
       .range([10, 90]);
@@ -48,11 +48,10 @@ HTMLWidgets.widget({
     instance.cloud
       .size([w, h])
       .words(data)
-      .padding(5)
-      //.rotate(function() { return Math.floor(Math.random() * 120) + 1 - 60; })
-      .rotate(function() { return ~~(Math.random() * 2) * 90; })
-      .font("Impact")
-      .fontSize(function(d) { return d.size; })
+      .padding(x.pars.padding)
+      .rotate(function() { return Math.floor(Math.random() * (x.pars.b - x.pars.a)) + x.pars.a; })
+      .font(x.pars.font)
+      .fontSize(function(d) { return scalesize(d.size); })
       .on("end", draw)
       .start();
 
