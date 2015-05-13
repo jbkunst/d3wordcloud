@@ -21,6 +21,7 @@ ui <-
                                        "Arial", "Arial Black", "Tahoma", "Verdana", "Courier New",
                                        "Georgia", "Times New Roman", "Andale Mono")),
                sliderInput("padding", label = "Padding:", min = 0, max = 5, value = 1, step = 1),
+               sliderInput("scale", label = "Scale:", min = 0, max = 5, value = 1, step = 1),
                sliderInput("rotate", label = "Rotate:", min = -90, max = 90, value = c(0, 45), step = 5)
                ),
         column(width = 8,
@@ -62,7 +63,8 @@ server <- shinyServer(function(input, output) {
       arrange(desc(freq)) %>%
       head(input$n_words)
 
-    d3wordcloud(d$word, d$freq, font = input$font, padding = input$padding, rotate.min = input$rotate[1], rotate.max = input$rotate[2])
+    d3wordcloud(d$word, d$freq, font = input$font, scale = input$scale, padding = input$padding,
+                rotate.min = input$rotate[1], rotate.max = input$rotate[2])
     })
   })
 
