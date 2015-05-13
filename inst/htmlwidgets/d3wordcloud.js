@@ -49,7 +49,7 @@ HTMLWidgets.widget({
       .size([w, h])
       .words(data)
       .padding(x.pars.padding)
-      .rotate(function() { return Math.floor(Math.random() * (x.pars.b - x.pars.a)) + x.pars.a; })
+      .rotate(function() { return Math.floor(Math.random() * (x.pars.rotmax - x.pars.rotmin)) + x.pars.rotmin; })
       .font(x.pars.font)
       .fontSize(function(d) { return scalesize(d.size); })
       .on("end", draw)
