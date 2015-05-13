@@ -2,23 +2,26 @@ library(shiny)
 library(htmlwidgets)
 
 ui <-
-  shinyUI(fluidPage(
-    titlePanel("Shniy Testing"),
-    sidebarLayout(
-      sidebarPanel(
-        sliderInput("n_words", label = "Number of words:", min = 10, max = 500, step = 10, value = 200),
-        selectInput("font", label = "Font:",
-                    choices = c("Impact", "Comic Sans MS (No plz!)" = "Comic Sans MS", "Arial", "Arial Black",
-                                "Tahoma", "Verdana", "Courier New", "Georgia", "Times New Roman", "Andale Mono")),
-        sliderInput("padding", label = "Padding:", min = 0, max = 20, value = 1),
-        sliderInput("angle", label = "Rotate:", min = -90, max = 90, value = c(0, 0))
-      ),
-      mainPanel(
-        d3wordcloudOutput("d3wc")
+  shinyUI(
+    fluidPage(
+      tags$br(),
+      fluidRow(
+        column(width = 8, includeMarkdown("README.md")),
+        column(width = 4, class = "well",
+               sliderInput("n_words", label = "Number of words:", min = 10, max = 500, step = 10, value = 200),
+               selectInput("font", label = "Font:",
+                           choices = c("Impact", "Comic Sans MS (No plz!)" = "Comic Sans MS",
+                                       "Arial", "Arial Black", "Tahoma", "Verdana", "Courier New",
+                                       "Georgia", "Times New Roman", "Andale Mono")),
+               sliderInput("padding", label = "Padding:", min = 0, max = 20, value = 1),
+               sliderInput("angle", label = "Rotate:", min = -90, max = 90, value = c(0, 0))
+               ),
+        column(width = 12,
+               d3wordcloudOutput("d3wc")
+               )
+        )
       )
     )
-  ))
-
 server <- shinyServer(function(input, output) {
 
   output$d3wc <- renderD3wordcloud({
