@@ -7,8 +7,6 @@ HTMLWidgets.widget({
 
   initialize: function(el, width, height) {
 
-    console.log("initialize");
-
     var w = el.offsetWidth;
     var h = el.offsetHeight;
 
@@ -28,12 +26,7 @@ HTMLWidgets.widget({
 
   renderValue: function(el, x, instance) {
 
-    console.log("renderValue");
-
     var data = HTMLWidgets.dataframeToD3(x.data);
-
-    //console.log(data);
-    console.log(x.pars);
 
     var w = el.offsetWidth;
     var h = el.offsetHeight;
