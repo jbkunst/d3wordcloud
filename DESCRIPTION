@@ -6,5 +6,6 @@ Date: 2015-05-09
 Author: Who wrote it
 Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line)
+Imports: htmlwidgets
 License: What license is it under?
 LazyData: TRUE
