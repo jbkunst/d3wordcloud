@@ -5,13 +5,17 @@
 #' @import htmlwidgets
 #'
 #' @export
-d3wordcloud <- function(words, freqs, font = "Impact", padding = 1, rotate.min = -60, rotate.max = 60,
+d3wordcloud <- function(words, freqs, font = "Impact", padding = 1, rotate.min = -45, rotate.max = 45,
+                        scale = "log", spiral = "archimedean",
                         width = NULL, height = NULL) {
+
+  # stopifnot(!scale %in% c("log", "sqrt", "linear"))
 
   # forward options using x
   x = list(
     data = data.frame(text = words, size = freqs),
-    pars = list(font = font, padding = padding, rotmin = rotate.min, rotmax = rotate.max)
+    pars = list(font = font, padding = padding, rotmin = rotate.min, rotmax = rotate.max,
+                scale = scale, spiral = spiral)
   )
 
   # create widget

@@ -26,6 +26,8 @@ HTMLWidgets.widget({
 
   renderValue: function(el, x, instance) {
 
+    console.log(x);
+
     var data = HTMLWidgets.dataframeToD3(x.data);
 
     var w = el.offsetWidth;
@@ -33,7 +35,36 @@ HTMLWidgets.widget({
 
     var fill = d3.scale.category20();
 
-    var scalesize = d3.scale.log()
+    var scale;
+
+    switch (x.pars.scale) {
+        case "log":
+            scale = d3.scale.log();
+            break;
+        case "sqrt":
+            scale = d3.scale.sqrt();
+            break;
+        case "linear":
+            scale = d3.scale.linear();
+            break;
+        default:
+            scale = d3.scale.log();
+    }
+
+    var spiral;
+
+    switch (x.pars.spiral) {
+        case "rectangular":
+            spiral = "rectangular";
+            break;
+        case "archimedean":
+            spiral = "archimedean";
+            break;
+        default:
+            spiral = "archimedean";
+    }
+
+    var scalesize = scale
       .domain([d3.min(data, function(d) { return d.size; }),
                d3.max(data, function(d) { return d.size; })])
       .range([10, 90]);
@@ -45,6 +76,7 @@ HTMLWidgets.widget({
       .rotate(function() { return Math.floor(Math.random() * (x.pars.rotmax - x.pars.rotmin)) + x.pars.rotmin; })
       .font(x.pars.font)
       .fontSize(function(d) { return scalesize(d.size); })
+      .spiral(spiral)
       .on("end", draw)
       .start();
 
@@ -93,7 +125,7 @@ HTMLWidgets.widget({
   },
 
   resize: function(el, width, height, instance) {
-
+    console.log("resize");
   }
 
 });
