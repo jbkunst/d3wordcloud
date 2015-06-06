@@ -17,17 +17,37 @@ There are a list of parameter for make your word cloud like you want:
 
 <dl>
 <dt>
-`padding`
+padding
 </dt>
 <dd>
 The separation between words
 </dd>
 <dt>
-`scale`
+scale
 </dt>
 <dd>
-`log`, `linear`, `sqrt`. The scale for
-``` freqs``</dd>   <dt> ```font`</dt><dd>The separation between words</dd>   <dt>`spiral`</dt><dd>The separation between words</dd>   <dt>`rotate.min`</dt><dd>The separation between words</dd>   <dt>`rotate.max\`
+`log`, `linear`, `sqrt`. The scale for `freqs`
+</dd>
+<dt>
+font
+</dt>
+<dd>
+The separation between words
+</dd>
+<dt>
+spiral
+</dt>
+<dd>
+The separation between words
+</dd>
+<dt>
+rotate.min
+</dt>
+<dd>
+The separation between words
+</dd>
+<dt>
+rotate.max
 </dt>
 <dd>
 The separation between words
