@@ -10,49 +10,23 @@ How it works?!
 The main function `d3wordcloud` needs only `words` and `freqs`. Just
 like the old good wordcloud package.
 
-Someone said to customize?
---------------------------
+Someone said to *customize*?
+----------------------------
 
-There are a list of parameter for make your word cloud like you want:
+There are a list of parameter for make your word cloud like you
+like/want:
 
-<dl>
-<dt>
-padding
-</dt>
-<dd>
-The separation between words
-</dd>
-<dt>
-scale
-</dt>
-<dd>
-`log`, `linear`, `sqrt`. The scale for `freqs`
-</dd>
-<dt>
-font
-</dt>
-<dd>
-The separation between words
-</dd>
-<dt>
-spiral
-</dt>
-<dd>
-The separation between words
-</dd>
-<dt>
-rotate.min
-</dt>
-<dd>
-The separation between words
-</dd>
-<dt>
-rotate.max
-</dt>
-<dd>
-The separation between words
-</dd>
-</dl>
+-   `padding`: The separation between words. Defaul value is `0`.
+-   `scale`:. The scale acording the `freq` parameter. Options are
+    `linear`, `sqrt` and `log`. Defaul value is `linear`.
+-   `font`:. The font use on the words. Defaul value is `Impact`.
+-   `spiral`: The way to construct the wordcloud. Options are
+    `archimedean` and `rectangular`. Defaul value is `archimedean`.
+-   `rotate.min`: Minimum angle for (random) rotation. Defaul value is
+    `-30`.
+-   `rotate.max`: Maximum angle for (random) rotation. Defaul value is
+    `30`.
+
 Recommendations
 ---------------
 
@@ -62,8 +36,9 @@ Recommendations
 Demo
 ----
 
-This is an old gif. Check
-[here](http://r-shiny-apps.jkunst.com/d3wordcloud/) instead
+Check [here](http://r-shiny-apps.jkunst.com/d3wordcloud/).
+
+An old demo gif:
 
 ![shinyappdemo](extras/d2wordcloud_demo.gif)
 

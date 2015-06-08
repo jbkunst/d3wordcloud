@@ -5,8 +5,8 @@
 #' @import htmlwidgets
 #'
 #' @export
-d3wordcloud <- function(words, freqs, font = "Impact", padding = 1, rotate.min = -45, rotate.max = 45,
-                        scale = "log", spiral = "archimedean",
+d3wordcloud <- function(words, freqs, font = "Impact", padding = 1, rotate.min = -30, rotate.max = 30,
+                        scale = "linear", spiral = "archimedean",
                         width = NULL, height = NULL) {
 
   # stopifnot(!scale %in% c("log", "sqrt", "linear"))
