@@ -2,7 +2,9 @@
 d3wordcloud
 -----------
 
-d3wordcloud is a wrapper for the Word Cloud Layout by Jason Davies.
+d3wordcloud is a wrapper for the [Word Cloud
+Layout](http://www.jasondavies.com/wordcloud) by [Jason
+Davies](http://www.jasondavies.com).
 
 How it works?!
 --------------
@@ -10,21 +12,21 @@ How it works?!
 The main function `d3wordcloud` needs only `words` and `freqs`. Just
 like the old good wordcloud package.
 
-Someone said to *customize*?
-----------------------------
+Parameters
+----------
 
-There are a list of parameter for make your word cloud like you
-like/want:
+There are parameter for make your word cloud like you like/want:
 
--   `padding`: The separation between words. Defaul value is `0`.
--   `scale`:. The scale acording the `freq` parameter. Options are
-    `linear`, `sqrt` and `log`. Defaul value is `linear`.
--   `font`:. The font use on the words. Defaul value is `Impact`.
+-   `padding`: The separation between words. Default value is `0`.
+-   `scale`: The scale to use for scale the words sizes (`freqs`) .
+    Options are `linear`, `sqrt` and `log`. Default value is `linear`.
+-   `font`: The font to use in thw the word cloud. Default value is
+    `Impact`.
 -   `spiral`: The way to construct the wordcloud. Options are
-    `archimedean` and `rectangular`. Defaul value is `archimedean`.
--   `rotate.min`: Minimum angle for (random) rotation. Defaul value is
+    `archimedean` and `rectangular`. Default value is `archimedean`.
+-   `rotate.min`: Minimum angle for (random) rotation. Default value is
     `-30`.
--   `rotate.max`: Maximum angle for (random) rotation. Defaul value is
+-   `rotate.max`: Maximum angle for (random) rotation. Default value is
     `30`.
 
 Recommendations
@@ -51,5 +53,5 @@ References
 Similar packages
 ----------------
 
--   Yep I repeated myself (this is NOTDRY). There is a package with this
-    functionality: ([link](https://github.com/adymimos/rWordCloud)).
+-   [rWordCloud](https://github.com/adymimos/rWordCloud). A package with
+    similar functionalities.
