@@ -1,4 +1,5 @@
-var el, x, data;
+var el, z, data;
+
 HTMLWidgets.widget({
 
   name: 'd3wordcloud',
@@ -28,10 +29,17 @@ HTMLWidgets.widget({
 
     console.log(x);
 
+    z = x;
+
     var data = HTMLWidgets.dataframeToD3(x.data);
 
     var w = el.offsetWidth;
     var h = el.offsetHeight;
+
+    d3.select("head")
+      .append("link")
+      .attr("href", "http://fonts.googleapis.com/css?family=" + x.pars.font + ":" + x.pars.fontweight)
+      .attr("rel", "stylesheet");
 
     var fill = d3.scale.category20();
 
@@ -121,11 +129,18 @@ HTMLWidgets.widget({
         .attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + 1 + ")");
     }
 
+    instance.lastValue = x;
+
 
   },
 
-  resize: function(el, width, height, instance) {
+   resize: function(el, width, height, instance) {
     console.log("resize");
+
+    // Re-render the previous value, if any
+    if (instance.lastValue) {
+      this.renderValue(el, instance.lastValue, instance);
+    }
   }
 
 });
