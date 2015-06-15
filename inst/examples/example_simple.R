@@ -6,8 +6,6 @@ library("dplyr")
 data(crude)
 crude <- tm_map(crude, removePunctuation)
 crude <- tm_map(crude, function(x){ removeWords(x, stopwords()) })
-
-#####         from frequency counts     #####
 tdm <- TermDocumentMatrix(crude)
 m <- as.matrix(tdm)
 v <- sort(rowSums(m), decreasing = TRUE)
@@ -19,4 +17,6 @@ d <- d %>% head(500)
 d3wordcloud(d$word, d$freq, font = "Erica One", padding = 5)
 d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 5)
 
-d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 5, font.weight = 800)
+d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1)
+d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 500)
+d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 800)
