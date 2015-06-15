@@ -1,5 +1,3 @@
-var el, z, data;
-
 HTMLWidgets.widget({
 
   name: 'd3wordcloud',
@@ -26,10 +24,6 @@ HTMLWidgets.widget({
   },
 
   renderValue: function(el, x, instance) {
-
-    console.log(x);
-
-    z = x;
 
     var data = HTMLWidgets.dataframeToD3(x.data);
 
@@ -128,19 +122,11 @@ HTMLWidgets.widget({
         .duration(750)
         .attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + 1 + ")");
     }
-
-    instance.lastValue = x;
-
-
+    
   },
-
-   resize: function(el, width, height, instance) {
-    console.log("resize");
-
-    // Re-render the previous value, if any
-    if (instance.lastValue) {
-      this.renderValue(el, instance.lastValue, instance);
-    }
+  
+  resize: function(el, width, height, instance) {
+    
   }
-
+  
 });
