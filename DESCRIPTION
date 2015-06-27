@@ -1,11 +1,13 @@
 Package: d3wordcloud
 Type: Package
-Title: What the Package Does (Title Case)
+Title: D3 JavaScript Wordcloud Graphs from R
 Version: 0.1
 Date: 2015-05-09
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-Imports: htmlwidgets
-License: What license is it under?
-LazyData: TRUE
+Authors@R: c(
+    person("Joshua", " ", email = "jbkunst@gmail.com", 
+    role = c("aut", "cre")),
+    person("Charles", "Sese", role = "ctb")
+    )
+Description: Create D3 JavaScript wordcloud
+Imports: htmlwidgets(>= 0.3.2)
+License: GPL (>= 3)
