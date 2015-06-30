@@ -2,8 +2,8 @@
 #'
 #' Create D3 JavaScript wordcloud
 #'
-#' 
-#' @examples 
+#'
+#' @examples
 #' library("tm")
 #' library("dplyr")
 
@@ -30,13 +30,20 @@
 #'
 #'
 #' @export
-d3wordcloud <- function(words, freqs, font = "Open Sans", 
-                        font.weight = 400, padding = 1, 
+d3wordcloud <- function(words, freqs, font = "Open Sans",
+                        font.weight = 400, padding = 1,
                         rotate.min = -30, rotate.max = 30,
-                        scale = "linear", spiral = "archimedean", 
-                        width = NULL, height = NULL) 
+                        scale = "linear", spiral = "archimedean",
+                        width = NULL, height = NULL)
 {
-        
+
+        stopifnot(length(words) > 0 & length(freqs) > 0)
+
+        data <- data.frame(text = as.character(words),
+                           size = as.numeric(freqs), stringsAsFactors = FALSE)
+
+
+
         if (!(scale %in% c("log", "sqrt", "linear"))){
                 stop("Scale must be either linear, log, or sqrt")
         }
@@ -45,16 +52,16 @@ d3wordcloud <- function(words, freqs, font = "Open Sans",
         }
         # forward options using x
         x = list(
-                data = data.frame(text = words, size = freqs),
-                pars = list(font = font, 
-                            fontweight = font.weight, 
+                data = data,
+                pars = list(font = font,
+                            fontweight = font.weight,
                             padding = padding,
-                            rotmin = rotate.min, 
+                            rotmin = rotate.min,
                             rotmax = rotate.max,
-                            scale = scale, 
+                            scale = scale,
                             spiral = spiral)
         )
-        
+
         # create widget
         htmlwidgets::createWidget(
                 name = 'd3wordcloud',

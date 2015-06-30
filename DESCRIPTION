@@ -4,7 +4,7 @@ Title: D3 JavaScript Wordcloud Graphs from R
 Version: 0.1
 Date: 2015-05-09
 Authors@R: c(
-    person("Joshua", " ", email = "jbkunst@gmail.com", 
+    person("Joshua", "Kunst", email = "jbkunst@gmail.com",
     role = c("aut", "cre")),
     person("Charles", "Sese", role = "ctb")
     )
