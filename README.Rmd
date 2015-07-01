@@ -9,13 +9,31 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
                       fig.path = "vignettes/figures/")
 ```
 
-## d3wordcloud
+# d3wordcloud
 
-d3wordcloud is a wrapper for the [Word Cloud Layout](http://www.jasondavies.com/wordcloud) by [Jason Davies](http://www.jasondavies.com).
+## What is it?
+
+d3wordcloud is a wrapper for the [Word Cloud Layout](http://www.jasondavies.com/wordcloud) by [Jason Davies](http://www.jasondavies.com) based on [htmlwidgets](https://github.com/ramnathv/htmlwidgets).
 
 ## How it works?!
 
-The main function `d3wordcloud` needs only `words` and `freqs`. Just like the old good wordcloud package.
+The main function `d3wordcloud` needs only `words` and `freqs`. Just like the old good wordcloud package. See demo [here](http://r-shiny-apps.jkunst.com/d3wordcloud/). 
+
+```{r, eval=FALSE}
+library("d3wordcloud")
+words <- c("I", "love", "this", "package", "but", "I", "don't", "like", "use", "wordclouds")
+freqs <- sample(seq(length(words)))
+
+d3wordcloud(words, freqs)
+```
+
+## How can you get it?
+
+I know! you already know how to install it
+
+```{r, eval=FALSE}
+devtools::install_github("jbkunst/d3wordcloud")
+```
 
 ## Parameters
 

@@ -1,16 +1,34 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 d3wordcloud
+===========
+
+What is it?
 -----------
 
 d3wordcloud is a wrapper for the [Word Cloud
 Layout](http://www.jasondavies.com/wordcloud) by [Jason
-Davies](http://www.jasondavies.com).
+Davies](http://www.jasondavies.com) based on
+[htmlwidgets](https://github.com/ramnathv/htmlwidgets).
 
 How it works?!
 --------------
 
 The main function `d3wordcloud` needs only `words` and `freqs`. Just
-like the old good wordcloud package.
+like the old good wordcloud package. See demo
+[here](http://r-shiny-apps.jkunst.com/d3wordcloud/).
+
+    library("d3wordcloud")
+    words <- c("I", "love", "this", "package", "but", "I", "don't", "like", "use", "wordclouds")
+    freqs <- sample(seq(length(words)))
+
+    d3wordcloud(words, freqs)
+
+How can you get it?
+-------------------
+
+I know! you already know how to install it
+
+    devtools::install_github("jbkunst/d3wordcloud")
 
 Parameters
 ----------
