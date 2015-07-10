@@ -32,7 +32,7 @@ HTMLWidgets.widget({
 
     d3.select("head")
       .append("link")
-      .attr("href", "http://fonts.googleapis.com/css?family=" + x.pars.font + ":" + x.pars.fontweight)
+      .attr("href", "https://fonts.googleapis.com/css?family=" + x.pars.font + ":" + x.pars.fontweight)
       .attr("rel", "stylesheet");
 
     var fill = d3.scale.category20();
@@ -122,11 +122,11 @@ HTMLWidgets.widget({
         .duration(750)
         .attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + 1 + ")");
     }
-    
+
   },
-  
+
   resize: function(el, width, height, instance) {
-    
+
   }
-  
+
 });
