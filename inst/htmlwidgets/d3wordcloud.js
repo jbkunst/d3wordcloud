@@ -69,6 +69,10 @@ HTMLWidgets.widget({
             spiral = "archimedean";
     }
 
+    var scalecolor = d3.scale.linear()
+      .domain([0, 1])
+      .range(["#AAAAAA", "#BBBBBB","#FFFFFF"])
+
     var scalesize = scale
       .domain([d3.min(data, function(d) { return d.size; }),
                d3.max(data, function(d) { return d.size; })])
