@@ -25,6 +25,8 @@ HTMLWidgets.widget({
 
   renderValue: function(el, x, instance) {
 
+    console.log(x)
+
     var data = HTMLWidgets.dataframeToD3(x.data);
 
     var w = el.offsetWidth;
@@ -36,6 +38,7 @@ HTMLWidgets.widget({
       .attr("rel", "stylesheet");
 
     var fill = d3.scale.category20();
+
 
     var scale;
 

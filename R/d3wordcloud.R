@@ -7,42 +7,50 @@
 #' library("tm")
 #' library("dplyr")
 
-#'data(crude)
-#'crude <- tm_map(crude, removePunctuation)
-#'crude <- tm_map(crude, function(x){ removeWords(x, stopwords()) })
-#'tdm <- TermDocumentMatrix(crude)
-#'m <- as.matrix(tdm)
-#'v <- sort(rowSums(m), decreasing = TRUE)
-#'d <- data.frame(word = names(v), freq = v)
-#'d <- d %>% tbl_df()
-#'d <- d %>% arrange(desc(freq))
-#'d <- d %>% head(500)
-
-#'d3wordcloud(d$word, d$freq, font = "Erica One", padding = 5)
-#'d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 5)
-
-#'d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1)
-#'d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 500)
-#'d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 800)
+#' data(crude)
+#' crude <- tm_map(crude, removePunctuation)
+#' crude <- tm_map(crude, function(x){ removeWords(x, stopwords()) })
+#' tdm <- TermDocumentMatrix(crude)
+#' m <- as.matrix(tdm)
+#' v <- sort(rowSums(m), decreasing = TRUE)
+#' d <- data.frame(word = names(v), freq = v)
+#' d <- d %>% tbl_df()
+#' d <- d %>% arrange(desc(freq))
+#' d <- d %>% head(100)
+#'
+#' d3wordcloud(d$word, d$freq, colors = "#CACACA", font = "Erica One", padding = 5)
+#' d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 5)
+#' d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1)
+#  d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 500)
+#' d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 800)
 #'
 #' @importFrom htmlwidgets shinyWidgetOutput
 #' @importFrom htmlwidgets shinyRenderWidget
 #'
 #'
 #' @export
-d3wordcloud <- function(words, freqs, font = "Open Sans",
+d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
                         font.weight = 400, padding = 1,
                         rotate.min = -30, rotate.max = 30,
                         scale = "linear", spiral = "archimedean",
                         width = NULL, height = NULL)
 {
 
-        stopifnot(length(words) > 0 & length(freqs) > 0)
+
+
+        stopifnot(length(words) == length(freqs), length(freqs) > 0)
 
         data <- data.frame(text = as.character(words),
                            size = as.numeric(freqs), stringsAsFactors = FALSE)
 
+        if(!missing(colors)) {
+          # http://www.mkyong.com/regular-expressions/how-to-validate-hex-color-code-with-regular-expression/
+          stopifnot(grepl("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", colors))
+        }
 
+        if(length(colors) == length(words) | length(colors) == 1){
+          data$color <- colors
+        }
 
         if (!(scale %in% c("log", "sqrt", "linear"))){
                 stop("Scale must be either linear, log, or sqrt")
@@ -59,7 +67,8 @@ d3wordcloud <- function(words, freqs, font = "Open Sans",
                             rotmin = rotate.min,
                             rotmax = rotate.max,
                             scale = scale,
-                            spiral = spiral)
+                            spiral = spiral,
+                            colors = colors)
         )
 
         # create widget
@@ -86,3 +95,8 @@ renderD3wordcloud <- function(expr, env = parent.frame(), quoted = FALSE) {
         if (!quoted) { expr <- substitute(expr) } # force quoted
         shinyRenderWidget(expr, d3wordcloudOutput, env, quoted = TRUE)
 }
+
+
+#' Validate Color
+#' @export
+
