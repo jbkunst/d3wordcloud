@@ -36,9 +36,10 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
                         width = NULL, height = NULL)
 {
 
-
-
-        stopifnot(length(words) == length(freqs), length(freqs) > 0)
+        stopifnot(length(words) == length(freqs),
+                  length(freqs) > 0,
+                  scale %in% c("log", "sqrt", "linear"),
+                  spiral %in% c("archimedean", "rectangular"))
 
         data <- data.frame(text = as.character(words),
                            size = as.numeric(freqs), stringsAsFactors = FALSE)
@@ -48,16 +49,12 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
           stopifnot(grepl("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", colors))
         }
 
-        if(length(colors) == length(words) | length(colors) == 1){
+        every_word_has_own_color <- length(colors) == length(words)
+
+        if(every_word_has_color){
           data$color <- colors
         }
 
-        if (!(scale %in% c("log", "sqrt", "linear"))){
-                stop("Scale must be either linear, log, or sqrt")
-        }
-        if (!(spiral %in% c("archimedean", "rectangular"))){
-                stop("Spiral must be either archimedean or rectangular")
-        }
         # forward options using x
         x = list(
                 data = data,
