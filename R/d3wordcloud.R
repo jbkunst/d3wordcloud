@@ -18,8 +18,11 @@
 #' d <- d %>% arrange(desc(freq))
 #' d <- d %>% head(100)
 #'
-#' d3wordcloud(d$word, d$freq, colors = "#CACACA", font = "Erica One", padding = 5)
-#' d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 5)
+#' words <- d$word
+#' freqs <- d$freq
+#'
+#' d3wordcloud(word, d$freq, colors = "#CACACA", font = "Erica One", padding = 5)
+#' d3wordcloud($word, d$freq, font = "Open Sans", padding = 5)
 #' d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1)
 #  d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 500)
 #' d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 800)
@@ -51,9 +54,11 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
 
         every_word_has_own_color <- length(colors) == length(words)
 
-        if(every_word_has_color){
+        if(every_word_has_own_color){
           data$color <- colors
         }
+
+        if(length(colors) == 1) colors <- c(colors, colors)
 
         # forward options using x
         x = list(
