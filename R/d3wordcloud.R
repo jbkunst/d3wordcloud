@@ -70,7 +70,8 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
                             rotmax = rotate.max,
                             scale = scale,
                             spiral = spiral,
-                            colors = colors)
+                            colors = colors,
+                            every_word_has_own_color = every_word_has_own_color)
         )
 
         # create widget
