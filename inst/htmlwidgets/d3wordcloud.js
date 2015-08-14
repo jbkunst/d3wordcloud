@@ -25,7 +25,8 @@ HTMLWidgets.widget({
 
   renderValue: function(el, x, instance) {
 
-    console.log(x)
+    console.log(x.pars);
+    console.log(x.data);
 
     var data = HTMLWidgets.dataframeToD3(x.data);
 
@@ -37,27 +38,65 @@ HTMLWidgets.widget({
       .attr("href", "https://fonts.googleapis.com/css?family=" + x.pars.font + ":" + x.pars.fontweight)
       .attr("rel", "stylesheet");
 
-    var fill = d3.scale.category20();
-
-
-    var scale;
-
-    switch (x.pars.scale) {
+    var sizescale;
+    switch (x.pars.sizescale) {
         case "log":
-            scale = d3.scale.log();
+            sizescale = d3.scale.log();
             break;
         case "sqrt":
-            scale = d3.scale.sqrt();
+            sizescale = d3.scale.sqrt();
             break;
         case "linear":
-            scale = d3.scale.linear();
+            sizescale = d3.scale.linear();
             break;
         default:
-            scale = d3.scale.log();
+            sizescale = d3.scale.log();
+    }
+
+    var sizescale = sizescale
+      .domain([d3.min(data, function(d) { return d.size; }),
+               d3.max(data, function(d) { return d.size; })])
+      .range([10, 90]);
+
+    var colorscale;
+    switch (x.pars.colorscale) {
+        case "log":
+            colorscale = d3.scale.log();
+            break;
+        case "sqrt":
+            colorscale = d3.scale.sqrt();
+            break;
+        case "linear":
+            colorscale = d3.scale.linear();
+            break;
+        default:
+            colorscale = d3.scale.log();
+    }
+
+    if(!x.pars.missing_colors){
+      if(x.pars.every_word_has_own_color){
+        colorscale = d3.scale.ordinal()
+          .domain(x.data.text)
+          .range(x.data.color);
+
+      } else {
+
+        minsize = d3.min(data, function(d) { return d.size; });
+        maxsize = d3.max(data, function(d) { return d.size; });
+
+        colorscale = colorscale
+          .domain(d3.range(minsize, maxsize, (maxsize-minsize)/x.pars.colors.length))
+          .range(x.pars.colors);
+
+      }
+
+    } else {
+
+      colorscale = d3.scale.category20b();
+
     }
 
     var spiral;
-
     switch (x.pars.spiral) {
         case "rectangular":
             spiral = "rectangular";
@@ -69,22 +108,13 @@ HTMLWidgets.widget({
             spiral = "archimedean";
     }
 
-    var scalecolor = d3.scale.linear()
-      .domain([0, 1])
-      .range(["#AAAAAA", "#BBBBBB","#FFFFFF"])
-
-    var scalesize = scale
-      .domain([d3.min(data, function(d) { return d.size; }),
-               d3.max(data, function(d) { return d.size; })])
-      .range([10, 90]);
-
     instance.cloud
       .size([w, h])
       .words(data)
       .padding(x.pars.padding)
       .rotate(function() { return Math.floor(Math.random() * (x.pars.rotmax - x.pars.rotmin)) + x.pars.rotmin; })
       .font(x.pars.font)
-      .fontSize(function(d) { return scalesize(d.size); })
+      .fontSize(function(d) { return sizescale(d.size); })
       .spiral(spiral)
       .on("end", draw)
       .start();
@@ -107,7 +137,7 @@ HTMLWidgets.widget({
         .style("font-size", function(d) { return d.size + "px"; });
 
       text.style("font-family", function(d) { return d.font; })
-        .style("fill", function(d) { return fill(d.text.toLowerCase()); })
+        .style("fill", function(d) { return colorscale(d.size); })
         .text(function(d) { return d.text; });
 
       var exitGroup = instance.background.append("g")
