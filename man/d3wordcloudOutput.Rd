@@ -6,6 +6,13 @@
 \usage{
 d3wordcloudOutput(outputId, width = "100\%", height = "400px")
 }
+\arguments{
+\item{outputId}{outputId}
+
+\item{width}{widget's width}
+
+\item{height}{widget's height}
+}
 \description{
 Widget output function for use in Shiny
 }

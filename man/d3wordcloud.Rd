@@ -4,16 +4,50 @@
 \alias{d3wordcloud}
 \title{D3 JavaScript Wordcloud Graphs from R}
 \usage{
-d3wordcloud(words, freqs, font = "Open Sans", font.weight = 400,
-  padding = 1, rotate.min = -30, rotate.max = 30, scale = "linear",
-  spiral = "archimedean", width = NULL, height = NULL)
+d3wordcloud(words, freqs, colors = NULL, font = "Open Sans", padding = 1,
+  rotate.min = -30, rotate.max = 30, size.scale = "linear",
+  color.scale = "linear", spiral = "archimedean", width = NULL,
+  height = NULL)
+}
+\arguments{
+\item{words}{The words}
+
+\item{freqs}{The frecuencies}
+
+\item{colors}{The color for wordcloud, if the length of words, and colors are the
+same, then each word will have its own color, in other case a grandien between the colors
+is generated (the order is important here).}
+
+\item{font}{The font to use in thw the word cloud. Default value is `Open Sans`.}
+
+\item{padding}{The separation between words. Default value is `0`.}
+
+\item{rotate.min}{Minimum angle for (random) rotation. Default value is `-30`.}
+
+\item{rotate.max}{Maximum angle for (random) rotation. Default value is `30`.}
+
+\item{size.scale}{The scale to use for scale the words sizes (`freqs`). Options are
+`linear`, `sqrt` and `log`. Default value is `linear`.}
+
+\item{color.scale}{The scale to use for scale the colors according to sizes (`freqs`). Options are
+`linear`, `sqrt` and `log`. Default value is `linear`.}
+
+\item{spiral}{The way to construct the wordcloud. Options are
+`archimedean` and `rectangular`. Default value is `archimedean`.}
+
+\item{width}{widget's width}
+
+\item{height}{widget's height}
 }
 \description{
 Create D3 JavaScript wordcloud
 }
 \examples{
+\dontrun{
 library("tm")
 library("dplyr")
+library("viridis")
+
 data(crude)
 crude <- tm_map(crude, removePunctuation)
 crude <- tm_map(crude, function(x){ removeWords(x, stopwords()) })
@@ -23,11 +57,50 @@ v <- sort(rowSums(m), decreasing = TRUE)
 d <- data.frame(word = names(v), freq = v)
 d <- d \%>\% tbl_df()
 d <- d \%>\% arrange(desc(freq))
-d <- d \%>\% head(500)
-d3wordcloud(d$word, d$freq, font = "Erica One", padding = 5)
-d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 5)
-d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1)
-d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 500)
-d3wordcloud(d$word, d$freq, font = "Open Sans", padding = 1, font.weight = 800)
+d <- d \%>\% head(100)
+
+words <- d$word
+freqs <- d$freq
+
+set.seed(123)
+colors <- replicate(length(words), {
+  paste0(c("#", sample(c(c(0:9),  LETTERS[1:6]), size = 6, replace = TRUE)), collapse = "")
+})
+
+# Simple
+d3wordcloud(words, freqs)
+
+# Colors
+d3wordcloud(words, freqs, colors = "#FFAA00")
+d3wordcloud(words, freqs, colors = colors)
+d3wordcloud(words, freqs, colors = c("#000000", "#0000FF", "#FF0000"))
+d3wordcloud(words, freqs, colors = substr(viridis::viridis(10, 1), 0 , 7))
+
+# Fonts
+d3wordcloud(words, freqs, font = "Erica One", padding = 5)
+d3wordcloud(words, freqs, font = "Sigmar One", padding = 7)
+
+# Spiral
+d3wordcloud(words,freqs, spiral = "archimedean") # default
+d3wordcloud(words,freqs, spiral = "rectangular")
+
+# Scale Size
+d3wordcloud(words,freqs, size.scale = "linear") # default
+d3wordcloud(words,freqs, size.scale = "log")
+d3wordcloud(words,freqs, size.scale = "sqrt")
+
+# Scale Color
+## Just work only when you put some colors with length(colors) != length(words)
+colors <- substr(viridis::viridis(3), 0 , 7)
+d3wordcloud(words,freqs, colors = colors, color.scale = "linear") # default
+d3wordcloud(words,freqs, colors = colors, color.scale = "log")
+d3wordcloud(words,freqs, colors = colors, color.scale = "sqrt")
+
+# Rotation
+d3wordcloud(words, freqs, rotate.min = 0, rotate.max = 0)
+d3wordcloud(words, freqs, rotate.min = 45, rotate.max = 45)
+d3wordcloud(words, freqs, rotate.min = -180, rotate.max = 180)
+
+}
 }
 

@@ -35,7 +35,7 @@ HTMLWidgets.widget({
 
     d3.select("head")
       .append("link")
-      .attr("href", "https://fonts.googleapis.com/css?family=" + x.pars.font + ":" + x.pars.fontweight)
+      .attr("href", "https://fonts.googleapis.com/css?family=" + x.pars.font)
       .attr("rel", "stylesheet");
 
     var sizescale;
