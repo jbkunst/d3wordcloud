@@ -3,7 +3,7 @@
 #' Create D3 JavaScript wordcloud
 #'
 #' @param words The words
-#' @param freqs The frecuencies
+#' @param freqs Their frequencies
 #' @param padding The separation between words. Default value is `0`.
 #' @param colors The color for wordcloud, if the length of words, and colors are the
 #' same, then each word will have its own color, in other case a grandien between the colors

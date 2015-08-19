@@ -5,7 +5,8 @@ d3wordcloud
 [![travis-status](https://api.travis-ci.org/jbkunst/d3wordcloud.svg)](https://travis-ci.org/jbkunst/d3wordcloud)
 [![version](http://www.r-pkg.org/badges/version/d3wordcloud)](http://www.r-pkg.org/pkg/d3wordcloud)
 [![downloads](http://cranlogs.r-pkg.org/badges/d3wordcloud)](http://www.r-pkg.org/pkg/d3wordcloud)
-[![Coverage Status](https://coveralls.io/repos/jbkunst/d3wordcloud/badge.svg?branch=master&service=github)](https://coveralls.io/github/jbkunst/d3wordcloud?branch=master)
+[![Coverage
+Status](https://coveralls.io/repos/jbkunst/d3wordcloud/badge.svg?branch=master&service=github)](https://coveralls.io/github/jbkunst/d3wordcloud?branch=master)
 
 What is it?
 -----------
@@ -40,11 +41,20 @@ Parameters
 
 There are parameter for make your word cloud like you like/want:
 
+-   `words`: The words
+-   `freqs`: Their frequencies
 -   `padding`: The separation between words. Default value is `0`.
--   `scale`: The scale to use for scale the words sizes (`freqs`) .
+-   `colors`: The color for wordcloud, if the length of words, and
+    colors are the same, then each word will have its own color, in
+    other case a grandien between the colors is generated (the order is
+    important here).
+-   `size.scale`: The scale to use for scale the words sizes (`freqs`).
     Options are `linear`, `sqrt` and `log`. Default value is `linear`.
+-   `color.scale`: The scale to use for scale the colors according to
+    sizes (`freqs`). Options are `linear`, `sqrt` and `log`. Default
+    value is `linear`.
 -   `font`: The font to use in thw the word cloud. Default value is
-    `Impact`.
+    `Open Sans`.
 -   `spiral`: The way to construct the wordcloud. Options are
     `archimedean` and `rectangular`. Default value is `archimedean`.
 -   `rotate.min`: Minimum angle for (random) rotation. Default value is
@@ -61,7 +71,7 @@ Recommendations
 Demo
 ----
 
-Check [here](http://r-shiny-apps.jkunst.com/d3wordcloud/).
+Check here <https://jbkunst.shinyapps.io/d3wordcloud>.
 
 An old demo gif:
 
