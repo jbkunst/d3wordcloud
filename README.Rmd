@@ -14,7 +14,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
 [![travis-status](https://api.travis-ci.org/jbkunst/d3wordcloud.svg)](https://travis-ci.org/jbkunst/d3wordcloud)
 [![version](http://www.r-pkg.org/badges/version/d3wordcloud)](http://www.r-pkg.org/pkg/d3wordcloud)
 [![downloads](http://cranlogs.r-pkg.org/badges/d3wordcloud)](http://www.r-pkg.org/pkg/d3wordcloud)
-[![Coverage Status](https://coveralls.io/repos/jbkunst/d3wordcloud/badge.svg?branch=master&service=github)](https://coveralls.io/github/jbkunst/d3wordcloud?branch=master)
 
 ## What is it?
 
