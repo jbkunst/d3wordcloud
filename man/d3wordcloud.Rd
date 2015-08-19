@@ -12,7 +12,7 @@ d3wordcloud(words, freqs, colors = NULL, font = "Open Sans", padding = 1,
 \arguments{
 \item{words}{The words}
 
-\item{freqs}{The frecuencies}
+\item{freqs}{Their frequencies}
 
 \item{colors}{The color for wordcloud, if the length of words, and colors are the
 same, then each word will have its own color, in other case a grandien between the colors
