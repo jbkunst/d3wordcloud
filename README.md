@@ -60,16 +60,16 @@ There are parameter for make your word cloud like you like/want:
 -   `rotate.max`: Maximum angle for (random) rotation. Default value is
     `30`.
 
-Recommendations
----------------
-
--   Always have the [latest version of
-    packages](https://github.com/ramnathv/htmlwidgets/issues/100).
+You can see this parameter in action here
+<http://rpubs.com/jbkunst/100416>.
 
 Demo
 ----
 
 Check here <https://jbkunst.shinyapps.io/d3wordcloud>.
+
+Sometimes I exceed the hours on the basic plan in shiniapps.io. You can
+always can view here: <http://rpubs.com/jbkunst/100416>.
 
 An old demo gif:
 
@@ -86,3 +86,9 @@ Similar packages
 
 -   [rWordCloud](https://github.com/adymimos/rWordCloud). A package with
     similar functionalities.
+
+Recommendations
+---------------
+
+-   Always have the [latest version of
+    packages](https://github.com/ramnathv/htmlwidgets/issues/100).

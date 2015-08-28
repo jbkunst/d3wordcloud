@@ -65,6 +65,8 @@ You can see this parameter in action here http://rpubs.com/jbkunst/100416.
 
 Check here https://jbkunst.shinyapps.io/d3wordcloud. 
 
+Sometimes I exceed the hours on the basic plan in shiniapps.io. You can always can view here: http://rpubs.com/jbkunst/100416.
+
 An old demo gif: 
 
 ![shinyappdemo](extras/d2wordcloud_demo.gif)
