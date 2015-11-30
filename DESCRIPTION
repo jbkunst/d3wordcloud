@@ -10,5 +10,7 @@ Authors@R: c(
     )
 Description: d3wordcloud is a R package for create D3 JavaScript wordcloud via
     htmlwidgets for D3js Word Cloud Layout.
-Imports: htmlwidgets(>= 0.3.2)
+Imports:
+    htmlwidgets(>= 0.3.2)
 License: GPL (>= 3)
+RoxygenNote: 5.0.1

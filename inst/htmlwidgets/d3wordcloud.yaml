@@ -1,7 +1,9 @@
 dependencies:
   - name: d3
-    version: 2.7.4
-    src: htmlwidgets/lib
-    script:
-      - d3.js
-      - d3.layout.cloud.js
+    version: 3.5.2
+    src: "htmlwidgets/lib/d3-3.5.2"
+    script: d3.min.js
+  - name: d3wordcloud
+    version: 1.0
+    src: "htmlwidgets/lib"
+    script: d3.layout.cloud.js
