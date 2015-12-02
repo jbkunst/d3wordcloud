@@ -138,7 +138,10 @@ HTMLWidgets.widget({
 
       text.style("font-family", function(d) { return d.font; })
         .style("fill", function(d) { return colorscale(d.size); })
-        .text(function(d) { return d.text; });
+        .attr("data-toggle", "tooltip")
+        .text(function(d) { return d.text; })
+        .append("svg:title")
+        .text(function(d) { return d.text + " " + d.size; });
 
       var exitGroup = instance.background.append("g")
         .attr("transform", instance.vis.attr("transform"));
