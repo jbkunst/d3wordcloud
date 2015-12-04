@@ -1,3 +1,6 @@
 .travis.yml
 ^.*\.Rproj$
 ^\.Rproj\.user$
+README.md
+extras
+inst/examples/rsconnect

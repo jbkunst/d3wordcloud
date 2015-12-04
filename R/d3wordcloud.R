@@ -17,6 +17,8 @@
 #' `archimedean` and `rectangular`. Default value is `archimedean`.
 #' @param rotate.min Minimum angle for (random) rotation. Default value is `-30`.
 #' @param rotate.max Maximum angle for (random) rotation. Default value is `30`.
+#' @param tooltip Boolean indicating if the cursor is over the text show a tooltip with the size
+#' @param rangesizefont A 2 length numeric vector indicating the size of text.
 #' @param width widget's width
 #' @param height widget's height
 #'
@@ -79,6 +81,9 @@
 #' d3wordcloud(words, freqs, rotate.min = 45, rotate.max = 45)
 #' d3wordcloud(words, freqs, rotate.min = -180, rotate.max = 180)
 #'
+#' # tooltip
+#' d3wordcloud(words, freqs, tooltip = TRUE)
+#'
 #' }
 #'
 #' @importFrom htmlwidgets shinyWidgetOutput
@@ -92,6 +97,8 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
                         size.scale = "linear",
                         color.scale = "linear",
                         spiral = "archimedean",
+                        tooltip = FALSE,
+                        rangesizefont = c(10, 90),
                         width = NULL, height = NULL)
 {
 
@@ -109,6 +116,7 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
   }
 
   data <- data.frame(text = as.character(words),
+                     freq = as.numeric(freqs),
                      size = as.numeric(freqs), stringsAsFactors = FALSE)
 
   every_word_has_own_color <- length(colors) == length(words)
@@ -126,6 +134,8 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
                       padding = padding,
                       rotmin = rotate.min,
                       rotmax = rotate.max,
+                      tooltip = tooltip,
+                      rangesizefont = rangesizefont,
                       sizescale = size.scale,
                       colorscale = color.scale,
                       spiral = spiral,

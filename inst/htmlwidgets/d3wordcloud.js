@@ -56,7 +56,7 @@ HTMLWidgets.widget({
     var sizescale = sizescale
       .domain([d3.min(data, function(d) { return d.size; }),
                d3.max(data, function(d) { return d.size; })])
-      .range([10, 90]);
+      .range(x.pars.rangesizefont);
 
     var colorscale;
     switch (x.pars.colorscale) {
@@ -136,12 +136,10 @@ HTMLWidgets.widget({
         .duration(1000)
         .style("font-size", function(d) { return d.size + "px"; });
 
-      text.style("font-family", function(d) { return d.font; })
+      text.style("font-family", x.pars.font)
         .style("fill", function(d) { return colorscale(d.size); })
         .attr("data-toggle", "tooltip")
-        .text(function(d) { return d.text; })
-        .append("svg:title")
-        .text(function(d) { return d.text + " " + d.size; });
+        .text(function(d) { return d.text; });
 
       var exitGroup = instance.background.append("g")
         .attr("transform", instance.vis.attr("transform"));
@@ -161,6 +159,51 @@ HTMLWidgets.widget({
         .delay(1000)
         .duration(750)
         .attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + 1 + ")");
+
+      if(x.pars.tooltip) {
+          var tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "d3wordcloud-tooltip")
+            .style("font-family", x.pars.font)
+            .style("position", "absolute")
+            .style("position", "absolute")
+            .style("text-align", "right")
+            .style("background", "#333")
+            .style("margin", "3px")
+            .style("color","white")
+            .style("padding","3px")
+            .style("border","0px")
+            .style("border-radius","3px") // 3px rule
+            .style("opacity",0)
+            .style("cursor", "default");
+
+          text
+            .on("mouseover", mouseover)
+            .on("mouseout", mouseout)
+            .on("mousemove", mousemove);
+
+          function mouseover(d){
+            tooltip.transition().duration(100).style("opacity", 1);
+            txt = d.text + ": " + d.freq;
+            console.log(d);
+            tooltip.html(txt);
+
+          }
+
+          function mouseout(d){
+            tooltip.transition().duration(100).style("opacity", 0);
+            d3.select("#" + idcontainer).selectAll("text").transition().duration(100).style("opacity", 1);
+
+          }
+          function mousemove(d){
+            tooltip
+              .style("left", (d3.event.pageX + 0 ) + "px")
+              .style("top", (d3.event.pageY + - 70) + "px");
+
+          }
+
+      }
+
     }
 
   },

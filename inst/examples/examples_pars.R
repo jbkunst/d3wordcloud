@@ -55,7 +55,7 @@ colors <- sample(substr(rainbow(length(words)), 0 , 7))
 d3wordcloud(words, freqs, colors = colors)
 
 #' We can add a gradient between colors *acording the freq (size)*
-d3wordcloud(words, freqs, colors = c("#000000", "#0000FF", "#FF0000"))
+d3wordcloud(words, freqs, colors = c("#FF0000", "#00FF00", "#0000FF"))
 d3wordcloud(words, freqs, colors = substr(viridis(10, 1), 0 , 7))
 
 #' ## Fonts
@@ -89,3 +89,11 @@ d3wordcloud(words,freqs, colors = colors, color.scale = "sqrt")
 d3wordcloud(words, freqs, rotate.min = 0, rotate.max = 0)
 d3wordcloud(words, freqs, rotate.min = 45, rotate.max = 45)
 d3wordcloud(words, freqs, rotate.min = -180, rotate.max = 180)
+
+#' ## Tooltips
+d3wordcloud(words, freqs, tooltip = TRUE)
+
+
+#' ## Change size
+d3wordcloud(words, freqs, rangesizefont = c(10, 20))
+

@@ -59,9 +59,11 @@ There are parameter for make your word cloud like you like/want:
     `-30`.
 -   `rotate.max`: Maximum angle for (random) rotation. Default value is
     `30`.
+-   `tooltip`: Do you want tooltips showing the frequecny on cursor hover? ;)
+-   `rangesizefont` A 2 length numeric vector indicating the size of text (this is usefull if you have sentences instead of words).
 
 You can see this parameter in action here
-<http://rpubs.com/jbkunst/100416>.
+<http://rpubs.com/jbkunst/133106>.
 
 Demo
 ----
@@ -69,7 +71,7 @@ Demo
 Check here <https://jbkunst.shinyapps.io/d3wordcloud>.
 
 Sometimes I exceed the hours on the basic plan in shiniapps.io. You can
-always can view here: <http://rpubs.com/jbkunst/100416>.
+always can view here: <http://rpubs.com/jbkunst/133106>.
 
 An old demo gif:
 

@@ -6,8 +6,8 @@
 \usage{
 d3wordcloud(words, freqs, colors = NULL, font = "Open Sans", padding = 1,
   rotate.min = -30, rotate.max = 30, size.scale = "linear",
-  color.scale = "linear", spiral = "archimedean", width = NULL,
-  height = NULL)
+  color.scale = "linear", spiral = "archimedean", tooltip = FALSE,
+  rangesizefont = c(10, 90), width = NULL, height = NULL)
 }
 \arguments{
 \item{words}{The words}
@@ -34,6 +34,10 @@ is generated (the order is important here).}
 
 \item{spiral}{The way to construct the wordcloud. Options are
 `archimedean` and `rectangular`. Default value is `archimedean`.}
+
+\item{tooltip}{Boolean indicating if the cursor is over the text show a tooltip with the size}
+
+\item{rangesizefont}{A 2 length numeric vector indicating the size of text.}
 
 \item{width}{widget's width}
 
@@ -100,6 +104,9 @@ d3wordcloud(words,freqs, colors = colors, color.scale = "sqrt")
 d3wordcloud(words, freqs, rotate.min = 0, rotate.max = 0)
 d3wordcloud(words, freqs, rotate.min = 45, rotate.max = 45)
 d3wordcloud(words, freqs, rotate.min = -180, rotate.max = 180)
+
+# tooltip
+d3wordcloud(words, freqs, tooltip = TRUE)
 
 }
 
