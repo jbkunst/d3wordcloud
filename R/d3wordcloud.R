@@ -18,6 +18,7 @@
 #' @param rotate.min Minimum angle for (random) rotation. Default value is `-30`.
 #' @param rotate.max Maximum angle for (random) rotation. Default value is `30`.
 #' @param tooltip Boolean indicating if the cursor is over the text show a tooltip with the size
+#' @param label character vector of alternate text to use in tooltips (must match length of unique words).
 #' @param rangesizefont A 2 length numeric vector indicating the size of text.
 #' @param width widget's width
 #' @param height widget's height
@@ -98,6 +99,7 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
                         color.scale = "linear",
                         spiral = "archimedean",
                         tooltip = FALSE,
+                        label = NULL,
                         rangesizefont = c(10, 90),
                         width = NULL, height = NULL)
 {
@@ -108,6 +110,10 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
             color.scale %in% c("log", "sqrt", "linear"),
             spiral %in% c("archimedean", "rectangular"))
 
+  if (!is.null(label)) {
+    stopifnot(length(words) == length(label))
+  }
+  
   missing_colors <- missing(colors)
 
   if (!missing_colors) {
@@ -117,7 +123,8 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
 
   data <- data.frame(text = as.character(words),
                      freq = as.numeric(freqs),
-                     size = as.numeric(freqs), stringsAsFactors = FALSE)
+                     size = as.numeric(freqs), 
+                     label = as.character(label), stringsAsFactors = FALSE)
 
   every_word_has_own_color <- length(colors) == length(words)
 
