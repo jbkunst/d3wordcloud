@@ -180,7 +180,8 @@ HTMLWidgets.widget({
           text
             .on("mouseover", mouseover)
             .on("mouseout", mouseout)
-            .on("mousemove", mousemove);
+            .on("mousemove", mousemove)
+			.on("mousedown", mousedown);
 
           function mouseover(d){
             tooltip.transition().duration(100).style("opacity", 1);
@@ -201,6 +202,10 @@ HTMLWidgets.widget({
               .style("top", (d3.event.pageY + - 70) + "px");
 
           }
+		  function mousedown(d){
+              window.open(d.text + '.html', "_blank");
+          }
+
 
       }
 
