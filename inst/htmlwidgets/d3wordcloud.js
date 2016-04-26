@@ -192,7 +192,7 @@ HTMLWidgets.widget({
 
           function mouseover(d){
             tooltip.transition().duration(100).style("opacity", 1);
-            txt = (d.label === null) ? d.text + ": " + d.freq: d.label + ": " + d.freq;
+            txt = (x.pars.label === null) ? d.text + ": " + d.freq: d.label + ": " + d.freq;
             console.log(d);
             tooltip.html(txt);
 
