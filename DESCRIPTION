@@ -6,7 +6,8 @@ Date: 2015-05-09
 Authors@R: c(
     person("Joshua", "Kunst", email = "jbkunst@gmail.com",
     role = c("aut", "cre")),
-    person("Charles", "Sese", role = "ctb")
+    person("Charles", "Sese", role = "ctb"),
+    person("Matthew", "Johnson", role = "ctb")
     )
 Description: d3wordcloud is a R package for create D3 JavaScript wordcloud via
     htmlwidgets for D3js Word Cloud Layout.
