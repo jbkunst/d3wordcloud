@@ -7,7 +7,7 @@
 d3wordcloud(words, freqs, colors = NULL, font = "Open Sans", padding = 1,
   rotate.min = -30, rotate.max = 30, size.scale = "linear",
   color.scale = "linear", spiral = "archimedean", tooltip = FALSE,
-  rangesizefont = c(10, 90), width = NULL, height = NULL)
+  label = NULL, rangesizefont = c(10, 90), width = NULL, height = NULL)
 }
 \arguments{
 \item{words}{The words}
@@ -36,6 +36,8 @@ is generated (the order is important here).}
 `archimedean` and `rectangular`. Default value is `archimedean`.}
 
 \item{tooltip}{Boolean indicating if the cursor is over the text show a tooltip with the size}
+
+\item{label}{character vector of alternate text to use in tooltips (must match length of unique words).}
 
 \item{rangesizefont}{A 2 length numeric vector indicating the size of text.}
 
