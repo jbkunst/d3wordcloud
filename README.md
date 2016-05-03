@@ -60,6 +60,7 @@ There are parameter for make your word cloud like you like/want:
 -   `rotate.max`: Maximum angle for (random) rotation. Default value is
     `30`.
 -   `tooltip`: Do you want tooltips showing the frequecny on cursor hover? ;)
+-   `label`: Alternate text for tooltip to display.
 -   `rangesizefont` A 2 length numeric vector indicating the size of text (this is usefull if you have sentences instead of words).
 
 You can see this parameter in action here

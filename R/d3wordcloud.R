@@ -110,10 +110,6 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
             color.scale %in% c("log", "sqrt", "linear"),
             spiral %in% c("archimedean", "rectangular"))
 
-  if (!is.null(label)) {
-    stopifnot(length(words) == length(label))
-  }
-  
   missing_colors <- missing(colors)
 
   if (!missing_colors) {
@@ -123,8 +119,12 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
 
   data <- data.frame(text = as.character(words),
                      freq = as.numeric(freqs),
-                     size = as.numeric(freqs), 
-                     label = as.character(label), stringsAsFactors = FALSE)
+                     size = as.numeric(freqs), stringsAsFactors = FALSE)
+
+  if (!is.null(label)) {
+    stopifnot(length(words) == length(label))
+    data$label = label
+  }
 
   every_word_has_own_color <- length(colors) == length(words)
 
@@ -148,7 +148,8 @@ d3wordcloud <- function(words, freqs, colors = NULL, font = "Open Sans",
                       spiral = spiral,
                       colors = colors,
                       every_word_has_own_color = every_word_has_own_color,
-                      missing_colors = missing_colors)
+                      missing_colors = missing_colors,
+                      label = label)
   )
 
   # create widget

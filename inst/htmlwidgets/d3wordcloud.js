@@ -137,7 +137,14 @@ HTMLWidgets.widget({
         .style("font-size", function(d) { return d.size + "px"; });
 
       text.style("font-family", x.pars.font)
-        .style("fill", function(d) { return colorscale(d.size); })
+        .style("fill", function(d) {
+           if (x.pars.every_word_has_own_color) {
+             return d.color;
+           } else {
+           return colorscale(d.size);
+           }
+           })
+
         .attr("data-toggle", "tooltip")
         .text(function(d) { return d.text; });
 
@@ -180,11 +187,12 @@ HTMLWidgets.widget({
           text
             .on("mouseover", mouseover)
             .on("mouseout", mouseout)
+			//.on("mousedown", mousedown)
             .on("mousemove", mousemove);
 
           function mouseover(d){
             tooltip.transition().duration(100).style("opacity", 1);
-            txt = (d.label === null) ? d.text + ": " + d.freq: d.label + ": " + d.freq;
+            txt = (x.pars.label === null) ? d.text + ": " + d.freq: d.label + ": " + d.freq;
             console.log(d);
             tooltip.html(txt);
 
@@ -201,6 +209,10 @@ HTMLWidgets.widget({
               .style("top", (d3.event.pageY + - 70) + "px");
 
           }
+		  //function mousedown(d){
+          //    window.open(d.text + '.html', "_blank");
+          //}
+
 
       }
 
