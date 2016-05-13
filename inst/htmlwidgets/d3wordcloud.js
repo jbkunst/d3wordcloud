@@ -165,7 +165,7 @@ HTMLWidgets.widget({
         .attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + 1 + ")");
 
       if(x.pars.tooltip) {
-          var tooltip = d3.select(el).select('.d3wordcloud-tooltip').data([0]);
+          var tooltip = d3.select(el).selectAll('.d3wordcloud-tooltip').data([0]);
 
           tooltip.enter()
             .append("div")
@@ -199,7 +199,7 @@ HTMLWidgets.widget({
 
           function mouseout(d){
             tooltip.transition().duration(100).style("opacity", 0);
-            d3.select("#" + idcontainer).selectAll("text").transition().duration(100).style("opacity", 1);
+            d3.select(el).selectAll("text").transition().duration(100).style("opacity", 1);
 
           }
           function mousemove(d){
