@@ -4,39 +4,27 @@ HTMLWidgets.widget({
 
   type: 'output',
 
-  initialize: function(el, width, height) {
+  drawWordCloud: function(el, instance) {
 
-    var w = el.offsetWidth;
-    var h = el.offsetHeight;
-
-    var cloud = d3.layout.cloud();
-    var svg = d3.select(el).append("svg").attr("width", w).attr("height", h);
-    var background = svg.append("g");
-    var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
-
-    return {
-      cloud: cloud,
-      svg: svg,
-      background: background,
-      vis: vis
-    };
-
-  },
-
-  renderValue: function(el, x, instance) {
+    var x = instance.x;
 
     console.log(x.pars);
     console.log(x.data);
 
     var data = HTMLWidgets.dataframeToD3(x.data);
 
-    var w = el.offsetWidth;
-    var h = el.offsetHeight;
+    var w = el.getBoundingClientRect().width;
+    var h = el.getBoundingClientRect().height;
 
-    d3.select("head")
-      .append("link")
-      .attr("href", "https://fonts.googleapis.com/css?family=" + x.pars.font)
-      .attr("rel", "stylesheet");
+    instance.svg.attr("width", w).attr("height", h);
+    instance.vis.attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
+
+    if(!instance.drawn){
+      d3.select("head")
+        .append("link")
+        .attr("href", "https://fonts.googleapis.com/css?family=" + x.pars.font)
+        .attr("rel", "stylesheet");
+    }
 
     var sizescale;
     switch (x.pars.sizescale) {
@@ -108,6 +96,12 @@ HTMLWidgets.widget({
             spiral = "archimedean";
     }
 
+    // bail if width or height is 0
+    //  since this will cause wordcloud to enter infinite loop
+    if(w===0 || h===0){
+      return;
+    }
+
     instance.cloud
       .size([w, h])
       .words(data)
@@ -120,6 +114,8 @@ HTMLWidgets.widget({
       .start();
 
     function draw(words) {
+      instance.drawn = true;
+
       var text = instance.vis.selectAll("text")
         .data(words, function(d) { return d.text.toLowerCase(); });
 
@@ -143,12 +139,13 @@ HTMLWidgets.widget({
            } else {
            return colorscale(d.size);
            }
-           })
-
+        })
         .attr("data-toggle", "tooltip")
         .text(function(d) { return d.text; });
 
-      var exitGroup = instance.background.append("g")
+      var exitGroup = instance.background.selectAll("g").data([0]);
+
+      exitGroup.append("g")
         .attr("transform", instance.vis.attr("transform"));
 
       var exitGroupNode = exitGroup.node();
@@ -168,7 +165,9 @@ HTMLWidgets.widget({
         .attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + 1 + ")");
 
       if(x.pars.tooltip) {
-          var tooltip = d3.select("body")
+          var tooltip = d3.select(el).select('.d3wordcloud-tooltip').data([0]);
+
+          tooltip.enter()
             .append("div")
             .attr("class", "d3wordcloud-tooltip")
             .style("font-family", x.pars.font)
@@ -217,10 +216,38 @@ HTMLWidgets.widget({
       }
 
     }
+  },
+
+  initialize: function(el, width, height) {
+
+    var w = el.getBoundingClientRect().width;
+    var h = el.getBoundingClientRect().height;
+
+    var cloud = d3.layout.cloud();
+    var svg = d3.select(el).append("svg").attr("width", w).attr("height", h);
+    var background = svg.append("g");
+    var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
+
+    return {
+      cloud: cloud,
+      svg: svg,
+      background: background,
+      vis: vis
+    };
+
+  },
+
+  renderValue: function(el, x, instance) {
+
+    instance.x = x;
+    instance.drawn = false;
+    this.drawWordCloud(el,instance);
 
   },
 
   resize: function(el, width, height, instance) {
+
+    this.drawWordCloud(el,instance);
 
   }
 
