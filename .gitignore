@@ -1,3 +1,6 @@
+inst/examples/*.html
+inst/examples/rsconnect/*
+
 # History files
 .Rhistory
 
