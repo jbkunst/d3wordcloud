@@ -130,7 +130,8 @@ HTMLWidgets.widget({
         .style("font-size", "1px")
         .transition()
         .duration(1000)
-        .style("font-size", function(d) { return d.size + "px"; });
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("cursor", "pointer");
 
       text.style("font-family", x.pars.font)
         .style("fill", function(d) {
@@ -141,7 +142,12 @@ HTMLWidgets.widget({
            }
         })
         .attr("data-toggle", "tooltip")
-        .text(function(d) { return d.text; });
+        .text(function(d) { return d.text; })
+        .on("click", function(d) { 
+            console.log("Selected words:"+d.text);  
+			if (typeof Shiny != 'undefined') {
+			Shiny.onInputChange('d3wordcloud_click',d.text) }
+		});;
 
       var exitGroup = instance.background.selectAll("g").data([0]);
 
@@ -194,13 +200,11 @@ HTMLWidgets.widget({
             txt = (x.pars.label === null) ? d.text + ": " + d.freq: d.label + ": " + d.freq;
             console.log(d);
             tooltip.html(txt);
-
           }
 
           function mouseout(d){
             tooltip.transition().duration(100).style("opacity", 0);
             d3.select(el).selectAll("text").transition().duration(100).style("opacity", 1);
-
           }
           function mousemove(d){
             tooltip
